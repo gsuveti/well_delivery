@@ -43,9 +43,6 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:$project.daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$project.daggerVersion"
 
-    // if you are not using support library, include this instead
-    implementation "com.google.dagger:dagger-android:$project.daggerVersion"
-
     // ButterKnife
     implementation "com.jakewharton:butterknife:$project.butterKnifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$project.butterKnifeVersion"
