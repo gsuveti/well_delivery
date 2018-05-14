@@ -13,6 +13,9 @@ project.ext {
     okHttpVersion = "3.4.1"
     rxRelayVersion = "2.0.0"
     rxLintVersion = "1.6.1"
+    eventBusVersion = "3.1.1"
+    parseVersion = "1.16.7"
+    googleServicesVersion = "15.0.1"
 }
 
 android {
@@ -30,6 +33,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -78,8 +85,16 @@ dependencies {
     // RxLint
     implementation "nl.littlerobots.rxlint:rxlint:$project.rxLintVersion"
 
+    // EventBus
+    implementation "org.greenrobot:eventbus:$project.eventBusVersion"
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // Parse
+    implementation "com.parse:parse-android:$project.parseVersion"
+
+    // Google Services
+    implementation "com.google.android.gms:play-services-maps:$project.googleServicesVersion"
+    implementation "com.google.android.gms:play-services-location:$project.googleServicesVersion"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
