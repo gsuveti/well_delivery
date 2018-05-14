@@ -1,7 +1,6 @@
-package ro.irian.well.well_delivery;
+package ro.irian.well.well_delivery.view;
 
 import android.Manifest;
-import android.app.Application;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,19 +17,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.AndroidInjection;
+import ro.irian.well.well_delivery.LocationUtils;
+import ro.irian.well.well_delivery.R;
+import ro.irian.well.well_delivery.domain.Action;
 import ro.irian.well.well_delivery.domain.User;
+import ro.irian.well.well_delivery.services.ActionService;
 
 
 public class MainActivity extends AppCompatActivity {
 
+
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     private static final String TAG = "MainActivity";
-
-    @Inject
-    public User user;
-    @Inject
-    Application application;
-
     @BindView(R.id.message)
     TextView mTextMessage;
     @BindView(R.id.latitude)
@@ -40,12 +38,18 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.permissions)
     TextView mTextPermissions;
 
+    @Inject
+    User user;
+    @Inject
+    ActionService actionService;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            actionService.addService(new Action(String.valueOf(item.getTitle())));
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);

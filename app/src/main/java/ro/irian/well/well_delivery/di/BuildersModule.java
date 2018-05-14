@@ -2,7 +2,7 @@ package ro.irian.well.well_delivery.di;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import ro.irian.well.well_delivery.MainActivity;
+import ro.irian.well.well_delivery.view.MainActivity;
 
 /**
  * Binds all sub-components within the app.
