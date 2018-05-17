@@ -27,11 +27,11 @@ import ro.irian.well.well_delivery.domain.Action;
 import ro.irian.well.well_delivery.domain.User;
 import ro.irian.well.well_delivery.services.ActionService;
 
-public class MainActivity extends AppCompatActivity {
+public class DevActivity extends AppCompatActivity {
 
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "DevActivity";
 
     @BindView(R.id.message)
     TextView mTextMessage;
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_dev);
 
         ButterKnife.bind(this);
 

@@ -12,6 +12,6 @@ public class MainActivityModule {
 
     @Provides
     User provideUser() {
-        return new User("george@MainActivity");
+        return new User("george@DevActivity");
     }
 }
