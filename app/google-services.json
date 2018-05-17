@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "871247264216",
+    "firebase_url": "https://well-delivery.firebaseio.com",
+    "project_id": "well-delivery",
+    "storage_bucket": "well-delivery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871247264216:android:7b59b9d94059c708",
+        "android_client_info": {
+          "package_name": "ro.irian.well.well_delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871247264216-1ht5kc2tv41eehguq3arf43m1nm30qeg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ro.irian.well.well_delivery",
+            "certificate_hash": "9ae62896f3c71080ea09935ef07bfc6e2c5e3c60"
+          }
+        },
+        {
+          "client_id": "871247264216-r6kpc18bpqoukvs017kmb0abqvancdi4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0QAwb63zXcmcJ_se_eHkGuW-PDUXEoAk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871247264216-r6kpc18bpqoukvs017kmb0abqvancdi4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
