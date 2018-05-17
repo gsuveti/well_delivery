@@ -15,7 +15,7 @@ project.ext {
     rxLintVersion = "1.6.1"
     eventBusVersion = "3.1.1"
     parseVersion = "1.16.7"
-    googleServicesVersion = "15.0.1"
+    googleServicesVersion = "15.0.0"
 }
 
 android {
@@ -43,6 +43,7 @@ android {
 dependencies {
 
     // Dagger core
+    implementation "com.google.firebase:firebase-firestore:$project.googleServicesVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
     implementation "com.google.dagger:dagger:$project.daggerVersion"
 
@@ -107,3 +108,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+apply plugin: 'com.google.gms.google-services'
