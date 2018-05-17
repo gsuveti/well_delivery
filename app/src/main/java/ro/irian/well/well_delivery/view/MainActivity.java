@@ -23,12 +23,12 @@ import ro.irian.well.well_delivery.domain.Action;
 import ro.irian.well.well_delivery.domain.User;
 import ro.irian.well.well_delivery.services.ActionService;
 
-
 public class MainActivity extends AppCompatActivity {
 
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     private static final String TAG = "MainActivity";
+
     @BindView(R.id.message)
     TextView mTextMessage;
     @BindView(R.id.latitude)
@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     User user;
     @Inject
     ActionService actionService;
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -115,5 +114,4 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
-
 }
