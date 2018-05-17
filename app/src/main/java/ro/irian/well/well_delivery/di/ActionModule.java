@@ -2,6 +2,8 @@ package ro.irian.well.well_delivery.di;
 
 import com.birbit.android.jobqueue.JobManager;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -12,14 +14,9 @@ import ro.irian.well.well_delivery.services.ActionServiceImpl;
 @Module
 public class ActionModule {
 
-    public ActionModule() {
-
-    }
-
-
     @Provides
     @Singleton
-    ActionService providesActionService(JobManager jobManager) {
-        return new ActionServiceImpl(jobManager);
+    ActionService providesActionService(JobManager jobManager, EventBus eventBus) {
+        return new ActionServiceImpl(jobManager, eventBus);
     }
 }

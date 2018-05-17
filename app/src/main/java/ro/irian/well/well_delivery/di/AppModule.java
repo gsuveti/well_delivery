@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.birbit.android.jobqueue.JobManager;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -30,6 +32,13 @@ public class AppModule {
     @Singleton
     JobManager providesJobManager() {
         return JobManagerFactory.getJobManager(mApplication);
+    }
+
+
+    @Provides
+    @Singleton
+    EventBus providesEventBus() {
+        return EventBus.getDefault();
     }
 
 }

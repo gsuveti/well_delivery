@@ -7,9 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     User user;
     @Inject
     ActionService actionService;
+    @Inject
+    EventBus eventbus;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -63,6 +69,23 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    @Subscribe()
+    public void onMessageEvent(String event) {
+        Log.d("AddActionJob", "in UI: " + event);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        eventbus.register(this);
+    }
+
+    @Override
+    public void onStop() {
+        eventbus.unregister(this);
+        super.onStop();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

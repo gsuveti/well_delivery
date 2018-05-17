@@ -8,15 +8,20 @@ import com.birbit.android.jobqueue.Job;
 import com.birbit.android.jobqueue.Params;
 import com.birbit.android.jobqueue.RetryConstraint;
 
+import org.greenrobot.eventbus.EventBus;
+
 import ro.irian.well.well_delivery.domain.Action;
 
 public class AddActionJob extends Job {
     private final Action action;
+    private final EventBus eventBus;
 
-    public AddActionJob(Action action) {
+    public AddActionJob(Action action, EventBus eventBus) {
         super(new Params(JobPriority.MID));
         this.action = action;
+        this.eventBus = eventBus;
     }
+
 
     @Override
     public void onAdded() {
@@ -27,6 +32,7 @@ public class AddActionJob extends Job {
     public void onRun() throws Throwable {
         Thread.sleep(10000);
         Log.d("AddActionJob", action.getName());
+        eventBus.post(action.getName());
     }
 
 
