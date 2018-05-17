@@ -3,6 +3,7 @@ package ro.irian.well.well_delivery.di;
 import android.app.Application;
 
 import com.birbit.android.jobqueue.JobManager;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -39,6 +40,13 @@ public class AppModule {
     @Singleton
     EventBus providesEventBus() {
         return EventBus.getDefault();
+    }
+
+
+    @Provides
+    @Singleton
+    FirebaseFirestore providesFirebaseFirestore() {
+        return FirebaseFirestore.getInstance();
     }
 
 }
