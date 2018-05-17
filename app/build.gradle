@@ -4,7 +4,7 @@ project.ext {
     supportLibraryVersion = "26.1.0"
     androidArchVersion = "1.1.1"
     daggerVersion = "2.16"
-    butterKnifeVersion = "8.7.0"
+    butterKnifeVersion = "8.8.1"
     rxJavaVersion = "2.1.0"
     rxAndroidVersion = "2.0.1"
     timberVersion = "4.5.1"
@@ -16,6 +16,7 @@ project.ext {
     eventBusVersion = "3.1.1"
     parseVersion = "1.16.7"
     googleServicesVersion = "15.0.0"
+    firebaseVersion = "15.0.0"
 }
 
 android {
@@ -43,7 +44,6 @@ android {
 dependencies {
 
     // Dagger core
-    implementation "com.google.firebase:firebase-firestore:$project.googleServicesVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
     implementation "com.google.dagger:dagger:$project.daggerVersion"
 
@@ -94,6 +94,10 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:$project.googleServicesVersion"
     implementation "com.google.android.gms:play-services-places:$project.googleServicesVersion"
 
+    // Firebase
+    implementation "com.google.firebase:firebase-firestore:$project.firebaseVersion"
+    implementation "com.google.firebase:firebase-storage:$project.firebaseVersion"
+    implementation "com.google.firebase:firebase-auth:$project.firebaseVersion"
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
