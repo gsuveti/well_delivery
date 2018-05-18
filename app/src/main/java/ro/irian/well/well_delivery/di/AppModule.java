@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.birbit.android.jobqueue.JobManager;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -47,6 +48,12 @@ public class AppModule {
     @Singleton
     FirebaseFirestore providesFirebaseFirestore() {
         return FirebaseFirestore.getInstance();
+    }
+
+    @Provides
+    @Singleton
+    FirebaseStorage providesFirebaseStorage() {
+        return FirebaseStorage.getInstance();
     }
 
 }
