@@ -27,4 +27,5 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_field_required">This field is required</string>
     <string name="action_sign_out">Sign Out</string>
+    <string name="submitButton">Submit</string>
 </resources>

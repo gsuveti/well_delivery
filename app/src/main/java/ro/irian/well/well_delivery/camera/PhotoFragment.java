@@ -15,6 +15,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +44,14 @@ public class PhotoFragment extends Fragment {
     List<ImageData> imageList = new ArrayList<>();
     private PhotoRecyclerViewAdapter mAdapter;
 
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+
+
     @BindView(R.id.list)
     RecyclerView recyclerView;
+    @BindView(R.id.submitPhotos)
+    Button mSubmitButton;
 
     Uri cameraFileUri;
 
@@ -94,6 +106,31 @@ public class PhotoFragment extends Fragment {
         startActivityForResult(pickPhoto, GALLERY_INTENT_REQUEST_CODE);
     }
 
+    @OnClick(R.id.submitPhotos)
+    public void submitPhotos() {
+        for (ImageData imageData : imageList) {
+            Uri file = imageData.getUri();
+            StorageReference photoRef = storageRef.child("images/" + file.getLastPathSegment());
+            UploadTask uploadTask = photoRef.putFile(file);
+            Task<Uri> urlTask = uploadTask.continueWithTask(task -> {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return photoRef.getDownloadUrl();
+            }).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    Log.d("TAG", downloadUri.toString());
+                } else {
+                    // Handle failures
+                    // ...
+                }
+            });
+        }
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap;
@@ -118,7 +155,6 @@ public class PhotoFragment extends Fragment {
                             }
                     ).collect(Collectors.toList());
 
-
                     newImageList = newImageList
                             .stream()
                             .map(
@@ -141,7 +177,7 @@ public class PhotoFragment extends Fragment {
                                         cursor.close();
                                         Uri newUri = Uri.fromParts("file", path, "");
 
-                                        return new ImageData(newUri, myBitmap);
+                                        return new ImageData(myUri, newUri, myBitmap);
                                     })
                             .filter(Objects::nonNull)
                             .collect(Collectors.toList());
@@ -149,7 +185,7 @@ public class PhotoFragment extends Fragment {
                     for (ImageData imageData : newImageList) {
                         boolean found = false;
                         for (ImageData oldImageData : imageList) {
-                            if (imageData.getUri().equals(oldImageData.getUri())) {
+                            if (imageData.getNewUri().equals(oldImageData.getNewUri())) {
                                 found = true;
                                 break;
                             }
