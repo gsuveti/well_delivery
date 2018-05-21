@@ -3,6 +3,7 @@ package ro.irian.well.well_delivery.di;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
-import dagger.android.support.HasSupportFragmentInjector;
 import ro.irian.well.well_delivery.App;
 
 /**
@@ -62,7 +62,7 @@ public class AppInjector {
     }
 
     private static void handleActivity(Activity activity) {
-        if (activity instanceof HasSupportFragmentInjector) {
+        if (activity instanceof Injectable) {
             AndroidInjection.inject(activity);
         }
         if (activity instanceof FragmentActivity) {
@@ -70,12 +70,13 @@ public class AppInjector {
                     .registerFragmentLifecycleCallbacks(
                             new FragmentManager.FragmentLifecycleCallbacks() {
                                 @Override
-                                public void onFragmentCreated(FragmentManager fm, Fragment f,
-                                                              Bundle savedInstanceState) {
+                                public void onFragmentPreAttached(FragmentManager fm, Fragment f,
+                                                                  Context context) {
                                     if (f instanceof Injectable) {
                                         AndroidSupportInjection.inject(f);
                                     }
                                 }
+
                             }, true);
         }
     }

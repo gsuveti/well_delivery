@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,13 +23,13 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
 import ro.irian.well.well_delivery.R;
+import ro.irian.well.well_delivery.di.Injectable;
 import ro.irian.well.well_delivery.domain.User;
 import ro.irian.well.well_delivery.view.main.MainActivity;
 import ro.irian.well.well_delivery.viewmodel.LoginViewModel;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements Injectable {
 
     private static final String TAG = "LoginActivity";
     @BindView(R.id.email)
@@ -53,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);

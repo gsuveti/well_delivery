@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,22 +35,16 @@ import ro.irian.well.well_delivery.viewmodel.RouteViewModel;
 public class RouteFragment extends Fragment implements Injectable {
 
     private static final String TAG = "RouteFragment";
-    private OnListFragmentInteractionListener mListener;
-
-    private RouteRecyclerViewAdapter mAdapter;
-
     @BindView(R.id.list)
     RecyclerView recyclerView;
-
     @Inject
     ViewModelProvider.Factory viewModelFactory;
-
     RouteViewModel routeViewModel;
-
     @Inject
     EventBus eventbus;
-
-    private List<Route> routes;
+    private OnListFragmentInteractionListener mListener;
+    private RouteRecyclerViewAdapter mAdapter;
+    private List<Route> routes = new ArrayList<>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

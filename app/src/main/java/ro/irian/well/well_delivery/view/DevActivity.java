@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -24,10 +23,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
 import ro.irian.well.well_delivery.LocationUtils;
 import ro.irian.well.well_delivery.R;
 import ro.irian.well.well_delivery.di.Injectable;
@@ -37,7 +32,7 @@ import ro.irian.well.well_delivery.domain.User;
 import ro.irian.well.well_delivery.services.ActionService;
 import ro.irian.well.well_delivery.view.routes.RouteFragment;
 
-public class DevActivity extends AppCompatActivity implements RouteFragment.OnListFragmentInteractionListener, HasSupportFragmentInjector, Injectable {
+public class DevActivity extends AppCompatActivity implements RouteFragment.OnListFragmentInteractionListener, Injectable {
 
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
@@ -58,9 +53,6 @@ public class DevActivity extends AppCompatActivity implements RouteFragment.OnLi
     ActionService actionService;
     @Inject
     EventBus eventbus;
-
-    @Inject
-    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -160,8 +152,4 @@ public class DevActivity extends AppCompatActivity implements RouteFragment.OnLi
         Toast.makeText(this, "bla", Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return dispatchingAndroidInjector;
-    }
 }
