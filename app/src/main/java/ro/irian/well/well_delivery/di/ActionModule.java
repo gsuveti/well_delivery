@@ -12,7 +12,7 @@ import ro.irian.well.well_delivery.services.ActionService;
 import ro.irian.well.well_delivery.services.ActionServiceImpl;
 
 @Module
-public class ActionModule {
+class ActionModule {
 
     @Provides
     @Singleton

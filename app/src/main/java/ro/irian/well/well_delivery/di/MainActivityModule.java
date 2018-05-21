@@ -8,7 +8,7 @@ import ro.irian.well.well_delivery.domain.User;
  * Binds all sub-components within the app.
  */
 @Module
-public class MainActivityModule {
+class MainActivityModule {
 
     @Provides
     User provideUser() {

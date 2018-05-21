@@ -1,8 +1,9 @@
 package ro.irian.well.well_delivery.di;
 
-import android.app.Application;
+import android.content.Context;
 
 import com.birbit.android.jobqueue.JobManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -12,30 +13,22 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import ro.irian.well.well_delivery.App;
 import ro.irian.well.well_delivery.services.jobs.JobManagerFactory;
 
-@Module
-public class AppModule {
+@Module(includes = ViewModelModule.class)
+class AppModule {
 
-    Application mApplication;
-
-    public AppModule(Application application) {
-        mApplication = application;
+    @Provides
+    Context provideContext(App application) {
+        return application.getApplicationContext();
     }
 
     @Provides
     @Singleton
-    Application providesApplication() {
-        return mApplication;
+    JobManager providesJobManager(Context context) {
+        return JobManagerFactory.getJobManager(context);
     }
-
-
-    @Provides
-    @Singleton
-    JobManager providesJobManager() {
-        return JobManagerFactory.getJobManager(mApplication);
-    }
-
 
     @Provides
     @Singleton
@@ -54,6 +47,12 @@ public class AppModule {
     @Singleton
     FirebaseStorage providesFirebaseStorage() {
         return FirebaseStorage.getInstance();
+    }
+
+    @Provides
+    @Singleton
+    FirebaseAuth providesFirebaseAuth() {
+        return FirebaseAuth.getInstance();
     }
 
 }

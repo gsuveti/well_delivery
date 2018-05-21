@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ro.irian.well.well_delivery.R;
 import ro.irian.well.well_delivery.view.DevActivity;
-import ro.irian.well.well_delivery.view.LoginActivity;
+import ro.irian.well.well_delivery.view.login.LoginActivity;
 import ro.irian.well.well_delivery.view.MapsActivity;
 
 public class MainActivity extends AppCompatActivity

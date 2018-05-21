@@ -1,7 +1,11 @@
-package ro.irian.well.well_delivery.view;
+package ro.irian.well.well_delivery.view.login;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,33 +17,59 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.greenrobot.eventbus.EventBus;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dagger.android.AndroidInjection;
 import ro.irian.well.well_delivery.R;
+import ro.irian.well.well_delivery.domain.User;
 import ro.irian.well.well_delivery.view.main.MainActivity;
+import ro.irian.well.well_delivery.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
-
-    private FirebaseAuth mAuth;
-
     @BindView(R.id.email)
     TextView mEmailView;
-
     @BindView(R.id.password)
     EditText mPasswordView;
-
     View focusView;
     String email, password;
 
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+
+    LoginViewModel loginViewModel;
+
+    @Inject
+    EventBus eventbus;
+
+
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         mAuth = FirebaseAuth.getInstance();
+
+        final Observer<User> userObserver = user -> {
+            if (user != null) {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            } else {
+                Log.w(TAG, "signInWithEmail:failure");
+                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                        Toast.LENGTH_LONG).show();
+            }
+
+        };
+
 
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
@@ -48,6 +78,10 @@ public class LoginActivity extends AppCompatActivity {
             }
             return false;
         });
+        loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
+        loginViewModel.getUserLiveData().observe(this, userObserver);
+
+
     }
 
     /**
@@ -65,22 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_LONG).show();
-                        }
-
-                    });
+            this.loginViewModel.login(email, password);
         }
     }
 
