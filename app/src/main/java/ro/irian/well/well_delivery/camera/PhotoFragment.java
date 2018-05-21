@@ -47,7 +47,6 @@ public class PhotoFragment extends Fragment {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
 
-
     @BindView(R.id.list)
     RecyclerView recyclerView;
     @BindView(R.id.submitPhotos)

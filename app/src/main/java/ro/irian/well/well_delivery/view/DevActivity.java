@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,11 +30,14 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import ro.irian.well.well_delivery.LocationUtils;
 import ro.irian.well.well_delivery.R;
+import ro.irian.well.well_delivery.di.Injectable;
 import ro.irian.well.well_delivery.domain.Action;
+import ro.irian.well.well_delivery.domain.Route;
 import ro.irian.well.well_delivery.domain.User;
 import ro.irian.well.well_delivery.services.ActionService;
+import ro.irian.well.well_delivery.view.routes.RouteFragment;
 
-public class DevActivity extends AppCompatActivity implements HasSupportFragmentInjector {
+public class DevActivity extends AppCompatActivity implements RouteFragment.OnListFragmentInteractionListener, HasSupportFragmentInjector, Injectable {
 
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
@@ -98,7 +102,6 @@ public class DevActivity extends AppCompatActivity implements HasSupportFragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dev);
 
@@ -150,6 +153,11 @@ public class DevActivity extends AppCompatActivity implements HasSupportFragment
                     startActivity(intent);
                 }
         );
+    }
+
+    @Override
+    public void onListFragmentInteraction(Route item) {
+        Toast.makeText(this, "bla", Toast.LENGTH_LONG).show();
     }
 
     @Override

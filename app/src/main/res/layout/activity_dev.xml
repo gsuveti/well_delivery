@@ -60,6 +60,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/updateCoords" />
 
+        <fragment
+            android:id="@+id/routesFragment"
+            android:name="ro.irian.well.well_delivery.view.routes.RouteFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photosFragment" />
+
         <TextView
             android:id="@+id/permissions"
             android:layout_width="wrap_content"

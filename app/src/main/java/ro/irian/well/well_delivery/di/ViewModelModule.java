@@ -13,7 +13,6 @@ import ro.irian.well.well_delivery.viewmodel.ViewModelFactory;
 @Module
 abstract class ViewModelModule {
 
-
     @Binds
     @IntoMap
     @ViewModelKey(RouteViewModel.class)
