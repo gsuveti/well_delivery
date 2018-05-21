@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-import ro.irian.well.well_delivery.di.DaggerAppComponent;
+import ro.irian.well.well_delivery.di.AppInjector;
 
 public class App extends Application implements HasActivityInjector {
     @Inject
@@ -17,12 +17,7 @@ public class App extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        DaggerAppComponent
-                .builder()
-                .application(this)
-                .build()
-                .inject(this);
+        AppInjector.init(this);
     }
 
     @Override
