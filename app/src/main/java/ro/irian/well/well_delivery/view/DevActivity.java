@@ -1,7 +1,9 @@
 package ro.irian.well.well_delivery.view;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -134,6 +136,11 @@ public class DevActivity extends AppCompatActivity {
                 this, location -> {
                     mTextLatitude.setText(String.valueOf(location.getLatitude()));
                     mTextLongitude.setText(String.valueOf(location.getLongitude()));
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+//                    intent.setData(Uri.parse("geo:"+45.74+","+21.22));
+                    intent.setData(Uri.parse("geo:0,0?q=lidl dumbravita"));
+                    startActivity(intent);
                 }
         );
     }
