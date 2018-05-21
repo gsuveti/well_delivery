@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -23,13 +24,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 import ro.irian.well.well_delivery.LocationUtils;
 import ro.irian.well.well_delivery.R;
 import ro.irian.well.well_delivery.domain.Action;
 import ro.irian.well.well_delivery.domain.User;
 import ro.irian.well.well_delivery.services.ActionService;
 
-public class DevActivity extends AppCompatActivity {
+public class DevActivity extends AppCompatActivity implements HasSupportFragmentInjector {
 
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
@@ -50,6 +54,9 @@ public class DevActivity extends AppCompatActivity {
     ActionService actionService;
     @Inject
     EventBus eventbus;
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -143,5 +150,10 @@ public class DevActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
         );
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingAndroidInjector;
     }
 }
