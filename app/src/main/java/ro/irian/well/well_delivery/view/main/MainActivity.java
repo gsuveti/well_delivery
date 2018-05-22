@@ -21,8 +21,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ro.irian.well.well_delivery.R;
 import ro.irian.well.well_delivery.view.DevActivity;
-import ro.irian.well.well_delivery.view.login.LoginActivity;
 import ro.irian.well.well_delivery.view.MapsActivity;
+import ro.irian.well.well_delivery.view.login.LoginActivity;
+import ro.irian.well.well_delivery.view.tasks.TaskListActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -97,8 +98,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.nav_taskList) {
+            this.startActivity(new Intent(this, TaskListActivity.class));
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

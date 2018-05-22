@@ -8,6 +8,7 @@ import dagger.Module;
 import dagger.multibindings.IntoMap;
 import ro.irian.well.well_delivery.viewmodel.LoginViewModel;
 import ro.irian.well.well_delivery.viewmodel.RouteViewModel;
+import ro.irian.well.well_delivery.viewmodel.TaskViewModel;
 import ro.irian.well.well_delivery.viewmodel.ViewModelFactory;
 
 @Module
@@ -22,6 +23,12 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LoginViewModel.class)
     abstract ViewModel bindLoginViewModel(LoginViewModel loginViewModel);
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TaskViewModel.class)
+    abstract ViewModel bindTaskViewModel(TaskViewModel taskViewModel);
 
 
     @Binds

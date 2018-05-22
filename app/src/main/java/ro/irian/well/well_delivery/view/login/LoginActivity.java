@@ -47,15 +47,11 @@ public class LoginActivity extends AppCompatActivity implements Injectable {
     @Inject
     EventBus eventbus;
 
-
-    private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        mAuth = FirebaseAuth.getInstance();
 
         final Observer<User> userObserver = user -> {
             if (user != null) {
