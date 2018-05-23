@@ -33,7 +33,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
         holder.mItem = mValues.get(position);
 
         holder.mIdView.setText(mValues.get(position).getId());
-        holder.mDestinationAddressView.setText(mValues.get(position).getDestinationAddress());
+        holder.mDestinationAddressView.setText(mValues.get(position).getPickupAddress() + " -> " + mValues.get(position).getDeliveryAddress());
 
         holder.mView.setOnClickListener(v -> {
 //            if (null != mListener) {
