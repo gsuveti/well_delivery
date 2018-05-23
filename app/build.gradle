@@ -15,8 +15,10 @@ project.ext {
     rxLintVersion = "1.6.1"
     eventBusVersion = "3.1.1"
     parseVersion = "1.16.7"
-    googleServicesVersion = "15.0.0"
-    firebaseVersion = "15.0.0"
+    googleServicesVersion = "15.0.1"
+    firebaseFirestoreVersion = "16.0.0"
+    firebaseStorageVersion = "15.0.2"
+    firebaseAuthVersion = "15.1.0"
 }
 
 android {
@@ -95,9 +97,9 @@ dependencies {
     implementation "com.google.android.gms:play-services-places:$project.googleServicesVersion"
 
     // Firebase
-    implementation "com.google.firebase:firebase-firestore:$project.firebaseVersion"
-    implementation "com.google.firebase:firebase-storage:$project.firebaseVersion"
-    implementation "com.google.firebase:firebase-auth:$project.firebaseVersion"
+    implementation "com.google.firebase:firebase-firestore:$project.firebaseFirestoreVersion"
+    implementation "com.google.firebase:firebase-storage:$project.firebaseStorageVersion"
+    implementation "com.google.firebase:firebase-auth:$project.firebaseAuthVersion"
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
