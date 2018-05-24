@@ -49,7 +49,7 @@ public class TaskListActivity extends AppCompatActivity implements Injectable {
 
         ButterKnife.bind(this);
 
-        mAdapter = new TaskRecyclerViewAdapter(taskList);
+        mAdapter = new TaskRecyclerViewAdapter(taskList, this);
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);

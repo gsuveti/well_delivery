@@ -1,5 +1,7 @@
 package ro.irian.well.well_delivery.view.tasks;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +18,11 @@ import ro.irian.well.well_delivery.domain.Task;
 public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerViewAdapter.ViewHolder> {
 
     private List<Task> mValues;
+    private Context context;
 
-    public TaskRecyclerViewAdapter(List<Task> mValues) {
+    public TaskRecyclerViewAdapter(List<Task> mValues, Context context) {
         this.mValues = mValues;
+        this.context = context;
     }
 
     @Override
@@ -34,13 +38,10 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
 
         holder.mIdView.setText(mValues.get(position).getId());
         holder.mDestinationAddressView.setText(mValues.get(position).getPickupAddress() + " -> " + mValues.get(position).getDeliveryAddress());
-
         holder.mView.setOnClickListener(v -> {
-//            if (null != mListener) {
-//                 Notify the active callbacks interface (the activity, if the
-//                 fragment is attached to one) that an item has been selected.
-//                mListener.onListFragmentInteraction(holder.mItem);
-//            }
+            Intent intent = new Intent(context, TaskDetailActivity.class);
+            intent.putExtra("taskID", holder.mItem.getId());
+            context.startActivity(intent);
         });
     }
 
