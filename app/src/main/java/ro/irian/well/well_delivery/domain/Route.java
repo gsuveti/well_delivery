@@ -3,18 +3,19 @@ package ro.irian.well.well_delivery.domain;
 public class Route {
 
     String id;
-    String originAddress;
-    String destinationAddress;
+    String name;
     Integer km;
+    String startTime;
+    String endTime;
+    String driverRef;
 
-    public Route(String id, String originAddress, String destinationAddress, Integer km) {
+    public Route(String id, String name, Integer km, String startTime, String endTime, String driverRef) {
         this.id = id;
-        this.originAddress = originAddress;
-        this.destinationAddress = destinationAddress;
+        this.name = name;
         this.km = km;
-    }
-
-    public Route() {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.driverRef = driverRef;
     }
 
     public String getId() {
@@ -25,20 +26,12 @@ public class Route {
         this.id = id;
     }
 
-    public String getOriginAddress() {
-        return originAddress;
+    public String getName() {
+        return name;
     }
 
-    public void setOriginAddress(String originAddress) {
-        this.originAddress = originAddress;
-    }
-
-    public String getDestinationAddress() {
-        return destinationAddress;
-    }
-
-    public void setDestinationAddress(String destinationAddress) {
-        this.destinationAddress = destinationAddress;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getKm() {
@@ -47,5 +40,29 @@ public class Route {
 
     public void setKm(Integer km) {
         this.km = km;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getDriverRef() {
+        return driverRef;
+    }
+
+    public void setDriverRef(String driverRef) {
+        this.driverRef = driverRef;
     }
 }

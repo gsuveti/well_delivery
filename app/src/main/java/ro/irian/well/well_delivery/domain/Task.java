@@ -1,5 +1,7 @@
 package ro.irian.well.well_delivery.domain;
 
+import java.util.List;
+
 public class Task {
 
     private String id;
@@ -23,16 +25,13 @@ public class Task {
     private String sender;
     private String consignee;
 
-    private boolean isNew;
-    private boolean isFinalTask;
-
     private Integer totalPieces;
     private Integer totalWeight;
 
-    public Task() {
-    }
+    private List<String> tags;
 
-    public Task(String id, String pickupCity, String pickupAddress, String pickupContactName, String pickupContactPhone, String pickupStartTime, String pickupEndTime, String deliveryAddress, String deliveryCity, String deliveryContactName, String deliveryContactPhone, String deliveryStartTime, String deliveryEndTime, String awb, String sender, String consignee, boolean isNew, boolean isFinalTask, Integer totalPieces, Integer totalWeight) {
+
+    public Task(String id, String pickupCity, String pickupAddress, String pickupContactName, String pickupContactPhone, String pickupStartTime, String pickupEndTime, String deliveryAddress, String deliveryCity, String deliveryContactName, String deliveryContactPhone, String deliveryStartTime, String deliveryEndTime, String awb, String sender, String consignee, Integer totalPieces, Integer totalWeight, List<String> tags) {
         this.id = id;
         this.pickupCity = pickupCity;
         this.pickupAddress = pickupAddress;
@@ -49,10 +48,9 @@ public class Task {
         this.awb = awb;
         this.sender = sender;
         this.consignee = consignee;
-        this.isNew = isNew;
-        this.isFinalTask = isFinalTask;
         this.totalPieces = totalPieces;
         this.totalWeight = totalWeight;
+        this.tags = tags;
     }
 
     public String getId() {
@@ -183,22 +181,6 @@ public class Task {
         this.consignee = consignee;
     }
 
-    public boolean isNew() {
-        return isNew;
-    }
-
-    public void setNew(boolean aNew) {
-        isNew = aNew;
-    }
-
-    public boolean isFinalTask() {
-        return isFinalTask;
-    }
-
-    public void setFinalTask(boolean finalTask) {
-        isFinalTask = finalTask;
-    }
-
     public Integer getTotalPieces() {
         return totalPieces;
     }
@@ -213,5 +195,13 @@ public class Task {
 
     public void setTotalWeight(Integer totalWeight) {
         this.totalWeight = totalWeight;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 }

@@ -40,7 +40,7 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getId());
-        holder.mDestinationAddressView.setText(mValues.get(position).getDestinationAddress());
+        holder.mDestinationAddressView.setText(mValues.get(position).getName());
 
         holder.mView.setOnClickListener(v -> {
             if (null != mListener) {
