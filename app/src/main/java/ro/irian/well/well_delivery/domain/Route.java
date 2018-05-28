@@ -8,6 +8,7 @@ public class Route {
     String startTime;
     String endTime;
     String driverRef;
+    boolean active;
 
 
     public Route() {
