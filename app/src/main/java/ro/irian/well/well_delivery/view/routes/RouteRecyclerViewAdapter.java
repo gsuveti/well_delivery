@@ -1,7 +1,6 @@
 package ro.irian.well.well_delivery.view.routes;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import ro.irian.well.well_delivery.R;
 import ro.irian.well.well_delivery.domain.Route;
 import ro.irian.well.well_delivery.view.routes.RouteFragment.OnListFragmentInteractionListener;
@@ -75,11 +73,6 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
             super(view);
             mView = view;
             ButterKnife.bind(this, view);
-        }
-
-        @OnClick(R.id.acceptRouteButton)
-        public void acceptRoute(){
-            Log.d(TAG, "accept route");
         }
     }
 }

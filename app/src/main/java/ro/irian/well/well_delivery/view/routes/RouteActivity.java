@@ -33,6 +33,6 @@ public class RouteActivity extends AppCompatActivity implements Injectable, Rout
 
     @Override
     public void onListFragmentInteraction(Route item) {
-        Toast.makeText(this, item.getId(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, item.getName(), Toast.LENGTH_SHORT).show();
     }
 }
