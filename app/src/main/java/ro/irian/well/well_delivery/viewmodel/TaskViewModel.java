@@ -19,8 +19,12 @@ public class TaskViewModel extends ViewModel {
         this.taskRepository = taskRepository;
     }
 
+    public LiveData<List<Task>> getTaskListLiveDataByRouteID(String routeRef) {
+        return this.taskRepository.getTaskListLiveDataByRouteID(routeRef);
+    }
+
     public LiveData<List<Task>> getTaskListLiveData() {
-        return this.taskRepository.getTaskListLiveData();
+        return this.taskRepository.getTaskLiveData();
     }
 
     @Override

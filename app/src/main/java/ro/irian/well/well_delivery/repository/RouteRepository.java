@@ -26,14 +26,13 @@ public class RouteRepository {
     @Inject
     public RouteRepository(FirebaseFirestore firebaseFirestore) {
         this.collection = firebaseFirestore.collection("routes");
-        Log.d(TAG, "RouteRepository");
     }
 
     public LiveData<List<Route>> getRouteLiveData() {
         return this.getRouteLiveData(null);
     }
 
-    public LiveData<List<Route>> getRouteLiveDataByUser(String driverID) {
+    public LiveData<List<Route>> getRouteLiveDataByDriverID(String driverID) {
         return this.getRouteLiveData(this.collection.whereEqualTo("driverID", driverID));
     }
 

@@ -20,7 +20,7 @@ public class RouteViewModel extends ViewModel {
     }
 
     public LiveData<List<Route>> getRouteLiveData(String driverID) {
-        return this.routeRepository.getRouteLiveDataByUser(driverID);
+        return this.routeRepository.getRouteLiveDataByDriverID(driverID);
     }
 
     @Override

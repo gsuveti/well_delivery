@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,16 +26,18 @@ import butterknife.OnClick;
 import ro.irian.well.well_delivery.R;
 import ro.irian.well.well_delivery.di.Injectable;
 import ro.irian.well.well_delivery.domain.Driver;
-import ro.irian.well.well_delivery.domain.Route;
+import ro.irian.well.well_delivery.domain.Task;
 import ro.irian.well.well_delivery.view.DevActivity;
 import ro.irian.well.well_delivery.view.MapsActivity;
 import ro.irian.well.well_delivery.view.login.LoginActivity;
-import ro.irian.well.well_delivery.view.routes.RouteFragment;
+import ro.irian.well.well_delivery.view.routes.RouteActivity;
+import ro.irian.well.well_delivery.view.tasks.TaskDetailActivity;
 import ro.irian.well.well_delivery.view.tasks.TaskListActivity;
+import ro.irian.well.well_delivery.view.tasks.TaskListFragment;
 import ro.irian.well.well_delivery.viewmodel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, Injectable, RouteFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TaskListFragment.OnListFragmentInteractionListener, Injectable {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -85,7 +86,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             this.signOut();
         }
-
     }
 
     @Override
@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_routeList) {
+            this.startActivity(new Intent(this, RouteActivity.class));
         } else if (id == R.id.nav_taskList) {
             this.startActivity(new Intent(this, TaskListActivity.class));
         } else if (id == R.id.nav_slideshow) {
@@ -166,12 +166,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(Route item) {
-        Toast.makeText(this, item.getId(), Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
+    public void onListFragmentInteraction(Task task) {
+        Intent intent = new Intent(this, TaskDetailActivity.class);
+        intent.putExtra("taskID", task.getId());
+        startActivity(intent);
     }
 }

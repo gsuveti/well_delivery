@@ -28,6 +28,8 @@
     <string name="error_field_required">This field is required</string>
     <string name="action_sign_out">Sign Out</string>
     <string name="submitButton">Submit</string>
+    <string name="route_list">Route List</string>
     <string name="task_list">Task List</string>
     <string name="accept">accept</string>
+    <string name="title_activity_route">RouteActivity</string>
 </resources>

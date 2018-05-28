@@ -5,6 +5,7 @@ import java.util.List;
 public class Task {
 
     private String id;
+    private String routeID;
 
     private String pickupCity;
     private String pickupAddress;
@@ -33,34 +34,20 @@ public class Task {
     public Task() {
     }
 
-    public Task(String id, String pickupCity, String pickupAddress, String pickupContactName, String pickupContactPhone, String pickupStartTime, String pickupEndTime, String deliveryAddress, String deliveryCity, String deliveryContactName, String deliveryContactPhone, String deliveryStartTime, String deliveryEndTime, String awb, String sender, String consignee, Integer totalPieces, Integer totalWeight, List<String> tags) {
-        this.id = id;
-        this.pickupCity = pickupCity;
-        this.pickupAddress = pickupAddress;
-        this.pickupContactName = pickupContactName;
-        this.pickupContactPhone = pickupContactPhone;
-        this.pickupStartTime = pickupStartTime;
-        this.pickupEndTime = pickupEndTime;
-        this.deliveryAddress = deliveryAddress;
-        this.deliveryCity = deliveryCity;
-        this.deliveryContactName = deliveryContactName;
-        this.deliveryContactPhone = deliveryContactPhone;
-        this.deliveryStartTime = deliveryStartTime;
-        this.deliveryEndTime = deliveryEndTime;
-        this.awb = awb;
-        this.sender = sender;
-        this.consignee = consignee;
-        this.totalPieces = totalPieces;
-        this.totalWeight = totalWeight;
-        this.tags = tags;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getRouteID() {
+        return routeID;
+    }
+
+    public void setRouteID(String routeID) {
+        this.routeID = routeID;
     }
 
     public String getPickupCity() {

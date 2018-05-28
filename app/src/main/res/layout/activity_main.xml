@@ -35,11 +35,12 @@
 
 
             <fragment
-                android:id="@+id/routesFragment"
-                android:name="ro.irian.well.well_delivery.view.routes.RouteFragment"
+                android:id="@+id/task_list_fragmet"
+                android:name="ro.irian.well.well_delivery.view.tasks.TaskListFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </android.support.v4.widget.NestedScrollView>
+
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
