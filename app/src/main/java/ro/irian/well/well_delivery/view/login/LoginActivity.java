@@ -1,9 +1,9 @@
 package ro.irian.well.well_delivery.view.login;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -14,8 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
@@ -25,7 +23,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ro.irian.well.well_delivery.R;
 import ro.irian.well.well_delivery.di.Injectable;
-import ro.irian.well.well_delivery.domain.User;
 import ro.irian.well.well_delivery.view.main.MainActivity;
 import ro.irian.well.well_delivery.viewmodel.LoginViewModel;
 
@@ -46,24 +43,14 @@ public class LoginActivity extends AppCompatActivity implements Injectable {
 
     @Inject
     EventBus eventbus;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
-        final Observer<User> userObserver = user -> {
-            if (user != null) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            } else {
-                Log.w(TAG, "signInWithEmail:failure");
-                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                        Toast.LENGTH_LONG).show();
-            }
-
-        };
-
 
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
@@ -73,7 +60,6 @@ public class LoginActivity extends AppCompatActivity implements Injectable {
             return false;
         });
         loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
-        loginViewModel.getUserLiveData().observe(this, userObserver);
 
 
     }
@@ -93,7 +79,22 @@ public class LoginActivity extends AppCompatActivity implements Injectable {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            this.loginViewModel.login(email, password);
+            this.loginViewModel.login(email, password).observe(this, user -> {
+                if (user != null) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("uid", user.getId());
+                    editor.commit();
+
+                    loginViewModel.getDriverLiveData(user.getId()).observe(this, observer -> {
+
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    });
+                } else {
+                    Log.w(TAG, "signInWithEmail:failure");
+                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 
@@ -141,5 +142,6 @@ public class LoginActivity extends AppCompatActivity implements Injectable {
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
+
 }
 

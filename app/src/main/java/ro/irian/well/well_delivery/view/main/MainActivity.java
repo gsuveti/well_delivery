@@ -1,6 +1,7 @@
 package ro.irian.well.well_delivery.view.main;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -12,32 +13,47 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ro.irian.well.well_delivery.R;
+import ro.irian.well.well_delivery.di.Injectable;
+import ro.irian.well.well_delivery.domain.Driver;
+import ro.irian.well.well_delivery.domain.Route;
 import ro.irian.well.well_delivery.view.DevActivity;
 import ro.irian.well.well_delivery.view.MapsActivity;
 import ro.irian.well.well_delivery.view.login.LoginActivity;
+import ro.irian.well.well_delivery.view.routes.RouteFragment;
 import ro.irian.well.well_delivery.view.tasks.TaskListActivity;
+import ro.irian.well.well_delivery.viewmodel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
-    private FirebaseAuth mAuth;
+        implements NavigationView.OnNavigationItemSelectedListener, Injectable, RouteFragment.OnListFragmentInteractionListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
-
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+    @Inject
+    MainViewModel mainViewModel;
+    @Inject
+    SharedPreferences sharedPreferences;
+
+    Driver driver;
+    TextView userEmailTextView;
+    TextView userNameTextView;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +62,9 @@ public class MainActivity extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
         ButterKnife.bind(this);
+        View headerView = navigationView.getHeaderView(0);
+        userEmailTextView = headerView.findViewById(R.id.userEmail);
+        userNameTextView = headerView.findViewById(R.id.userName);
 
         setSupportActionBar(toolbar);
 
@@ -55,6 +74,18 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        String uid = sharedPreferences.getString("uid", null);
+        if (uid != null) {
+            mainViewModel.getDriverLiveData(uid).observe(this, driver -> {
+                this.driver = driver;
+                this.userNameTextView.setText(driver.getName());
+                this.userEmailTextView.setText(driver.getId());
+            });
+        } else {
+            this.signOut();
+        }
+
     }
 
     @Override
@@ -82,12 +113,17 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.sign_out) {
-            mAuth.signOut();
-            startActivity(new Intent(this, LoginActivity.class));
+            this.signOut();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void signOut() {
+        mAuth.signOut();
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -127,5 +163,15 @@ public class MainActivity extends AppCompatActivity
         if (currentUser == null) {
             startActivity(new Intent(this, LoginActivity.class));
         }
+    }
+
+    @Override
+    public void onListFragmentInteraction(Route item) {
+        Toast.makeText(this, item.getId(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

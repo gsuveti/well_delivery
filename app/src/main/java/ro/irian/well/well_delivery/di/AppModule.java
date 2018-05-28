@@ -1,6 +1,7 @@
 package ro.irian.well.well_delivery.di;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.birbit.android.jobqueue.JobManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,33 +27,39 @@ class AppModule {
 
     @Provides
     @Singleton
-    JobManager providesJobManager(Context context) {
+    JobManager provideJobManager(Context context) {
         return JobManagerFactory.getJobManager(context);
     }
 
     @Provides
     @Singleton
-    EventBus providesEventBus() {
+    EventBus provideEventBus() {
         return EventBus.getDefault();
     }
 
 
     @Provides
     @Singleton
-    FirebaseFirestore providesFirebaseFirestore() {
+    FirebaseFirestore provideFirebaseFirestore() {
         return FirebaseFirestore.getInstance();
     }
 
     @Provides
     @Singleton
-    FirebaseStorage providesFirebaseStorage() {
+    FirebaseStorage provideFirebaseStorage() {
         return FirebaseStorage.getInstance();
     }
 
     @Provides
     @Singleton
-    FirebaseAuth providesFirebaseAuth() {
+    FirebaseAuth provideFirebaseAuth() {
         return FirebaseAuth.getInstance();
+    }
+
+    @Provides
+    @Singleton
+    SharedPreferences providesSharedPreferences(Context context) {
+        return context.getSharedPreferences("well", Context.MODE_PRIVATE);
     }
 
 }

@@ -30,6 +30,8 @@ public class Task {
 
     private List<String> tags;
 
+    public Task() {
+    }
 
     public Task(String id, String pickupCity, String pickupAddress, String pickupContactName, String pickupContactPhone, String pickupStartTime, String pickupEndTime, String deliveryAddress, String deliveryCity, String deliveryContactName, String deliveryContactPhone, String deliveryStartTime, String deliveryEndTime, String awb, String sender, String consignee, Integer totalPieces, Integer totalWeight, List<String> tags) {
         this.id = id;

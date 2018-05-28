@@ -11,4 +11,7 @@ public class AbsentLiveData extends LiveData {
         //noinspection unchecked
         return new AbsentLiveData();
     }
+
+
+
 }

@@ -4,6 +4,7 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 import ro.irian.well.well_delivery.view.DevActivity;
 import ro.irian.well.well_delivery.view.login.LoginActivity;
+import ro.irian.well.well_delivery.view.main.MainActivity;
 import ro.irian.well.well_delivery.view.routes.RouteFragment;
 import ro.irian.well.well_delivery.view.tasks.TaskListActivity;
 
@@ -14,7 +15,7 @@ import ro.irian.well.well_delivery.view.tasks.TaskListActivity;
 abstract class BuildersModule {
 
     @ContributesAndroidInjector(modules = MainActivityModule.class)
-    abstract DevActivity bindMainActivity();
+    abstract DevActivity bindDevActivity();
 
     @ContributesAndroidInjector
     abstract TaskListActivity bindTaskListActivity();
@@ -24,6 +25,9 @@ abstract class BuildersModule {
 
     @ContributesAndroidInjector
     abstract RouteFragment bindRouteFragment();
+
+    @ContributesAndroidInjector
+    abstract MainActivity bindMainActivity();
 
     // Add bindings for other sub-components here
 }

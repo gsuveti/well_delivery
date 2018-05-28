@@ -9,13 +9,8 @@ public class Route {
     String endTime;
     String driverRef;
 
-    public Route(String id, String name, Integer km, String startTime, String endTime, String driverRef) {
-        this.id = id;
-        this.name = name;
-        this.km = km;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.driverRef = driverRef;
+
+    public Route() {
     }
 
     public String getId() {
