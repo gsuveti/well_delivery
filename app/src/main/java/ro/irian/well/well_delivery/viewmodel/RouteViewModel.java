@@ -19,8 +19,8 @@ public class RouteViewModel extends ViewModel {
         this.routeRepository = routeRepository;
     }
 
-    public LiveData<List<Route>> getRouteLiveData() {
-        return this.routeRepository.getRouteLiveData();
+    public LiveData<List<Route>> getRouteLiveData(String driverID) {
+        return this.routeRepository.getRouteLiveDataByUser(driverID);
     }
 
     @Override

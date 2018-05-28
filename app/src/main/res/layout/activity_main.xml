@@ -27,12 +27,19 @@
 
         </android.support.design.widget.AppBarLayout>
 
-
-        <fragment
-            android:id="@+id/routesFragment"
-            android:name="ro.irian.well.well_delivery.view.routes.RouteFragment"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+
+
+            <fragment
+                android:id="@+id/routesFragment"
+                android:name="ro.irian.well.well_delivery.view.routes.RouteFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.v4.widget.NestedScrollView>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

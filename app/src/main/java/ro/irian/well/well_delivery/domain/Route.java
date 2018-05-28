@@ -7,7 +7,7 @@ public class Route {
     Integer km;
     String startTime;
     String endTime;
-    String driverRef;
+    String driverID;
     boolean active;
 
 
@@ -54,11 +54,19 @@ public class Route {
         this.endTime = endTime;
     }
 
-    public String getDriverRef() {
-        return driverRef;
+    public String getDriverID() {
+        return driverID;
     }
 
-    public void setDriverRef(String driverRef) {
-        this.driverRef = driverRef;
+    public void setDriverID(String driverID) {
+        this.driverID = driverID;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

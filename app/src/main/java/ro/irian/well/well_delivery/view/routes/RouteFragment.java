@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,6 +43,10 @@ public class RouteFragment extends Fragment implements Injectable {
     RouteViewModel routeViewModel;
     @Inject
     EventBus eventbus;
+
+    @Inject
+    SharedPreferences sharedPreferences;
+
     private OnListFragmentInteractionListener mListener;
     private RouteRecyclerViewAdapter mAdapter;
     private List<Route> routes = new ArrayList<>();
@@ -74,8 +79,11 @@ public class RouteFragment extends Fragment implements Injectable {
                 mAdapter.notifyDataSetChanged();
             }
         };
+
+        String uid = sharedPreferences.getString("uid", null);
+
         routeViewModel = ViewModelProviders.of(this, viewModelFactory).get(RouteViewModel.class);
-        routeViewModel.getRouteLiveData().observe(this, routeObserver);
+        routeViewModel.getRouteLiveData(uid).observe(this, routeObserver);
     }
 
     @Override

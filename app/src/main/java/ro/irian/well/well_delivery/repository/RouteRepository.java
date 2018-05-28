@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import ro.irian.well.well_delivery.domain.Driver;
 import ro.irian.well.well_delivery.domain.Route;
 
 @Singleton
@@ -34,8 +33,8 @@ public class RouteRepository {
         return this.getRouteLiveData(null);
     }
 
-    public LiveData<List<Route>> getRouteLiveDataByUser(Driver driver) {
-        return this.getRouteLiveData(this.collection.whereEqualTo("driverRef", driver.getId()));
+    public LiveData<List<Route>> getRouteLiveDataByUser(String driverID) {
+        return this.getRouteLiveData(this.collection.whereEqualTo("driverID", driverID));
     }
 
     public LiveData<List<Route>> getRouteLiveData(Query query) {

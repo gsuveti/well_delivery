@@ -29,4 +29,5 @@
     <string name="action_sign_out">Sign Out</string>
     <string name="submitButton">Submit</string>
     <string name="task_list">Task List</string>
+    <string name="accept">accept</string>
 </resources>
