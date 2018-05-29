@@ -1,7 +1,7 @@
 package ro.irian.well.well_delivery.view.tasks;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import ro.irian.well.well_delivery.R;
@@ -17,5 +17,7 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         String taskID = getIntent().getStringExtra("taskID");
         Log.d(TAG, taskID);
+
+
     }
 }

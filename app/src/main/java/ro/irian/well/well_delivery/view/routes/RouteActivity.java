@@ -1,27 +1,18 @@
 package ro.irian.well.well_delivery.view.routes;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.Toast;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import ro.irian.well.well_delivery.R;
 import ro.irian.well.well_delivery.di.Injectable;
 import ro.irian.well.well_delivery.domain.Route;
 import ro.irian.well.well_delivery.viewmodel.RouteViewModel;
 
 public class RouteActivity extends AppCompatActivity implements Injectable, RouteFragment.OnListFragmentInteractionListener {
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
     @Inject
     RouteViewModel routeViewModel;
 
@@ -31,9 +22,6 @@ public class RouteActivity extends AppCompatActivity implements Injectable, Rout
         setContentView(R.layout.activity_route);
 
         ButterKnife.bind(this);
-
-        setSupportActionBar(toolbar);
-
     }
 
     @Override
@@ -44,11 +32,5 @@ public class RouteActivity extends AppCompatActivity implements Injectable, Rout
                 (value) -> {
                     finish();
                 });
-    }
-
-    @OnClick(R.id.fab)
-    public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
     }
 }

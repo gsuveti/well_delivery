@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import javax.inject.Inject;
 
@@ -29,7 +28,6 @@ import ro.irian.well.well_delivery.domain.Driver;
 import ro.irian.well.well_delivery.domain.Task;
 import ro.irian.well.well_delivery.view.DevActivity;
 import ro.irian.well.well_delivery.view.MapsActivity;
-import ro.irian.well.well_delivery.view.login.LoginActivity;
 import ro.irian.well.well_delivery.view.routes.RouteActivity;
 import ro.irian.well.well_delivery.view.tasks.TaskDetailActivity;
 import ro.irian.well.well_delivery.view.tasks.TaskListActivity;
@@ -75,17 +73,6 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-
-        String uid = sharedPreferences.getString("uid", null);
-        if (uid != null) {
-            mainViewModel.getDriverLiveData(uid).observe(this, driver -> {
-                this.driver = driver;
-                this.userNameTextView.setText(driver.getName());
-                this.userEmailTextView.setText(driver.getId());
-            });
-        } else {
-            this.signOut();
-        }
     }
 
     @Override
@@ -123,7 +110,7 @@ public class MainActivity extends AppCompatActivity
 
     private void signOut() {
         mAuth.signOut();
-        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -159,15 +146,32 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
-            startActivity(new Intent(this, LoginActivity.class));
+        String uid = sharedPreferences.getString("uid", null);
+        if (uid != null) {
+            mainViewModel.getDriverLiveData(uid).observe(this, driver -> {
+                this.driver = driver;
+                this.userNameTextView.setText(driver.getName());
+                this.userEmailTextView.setText(driver.getId());
+            });
+
+            String activeRouteID = sharedPreferences.getString("activeRouteID", null);
+            if (activeRouteID == null) {
+                Intent intent = new Intent(this, RouteActivity.class);
+                startActivity(intent);
+            }
+        } else {
+            this.signOut();
         }
     }
 
     @Override
     public void onListFragmentInteraction(Task task) {
         Intent intent = new Intent(this, TaskDetailActivity.class);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("taskID", task.getId());
+        editor.commit();
+
         intent.putExtra("taskID", task.getId());
         startActivity(intent);
     }

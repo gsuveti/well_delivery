@@ -69,8 +69,8 @@
         <activity android:name=".view.tasks.TaskDetailActivity" />
         <activity
             android:name=".view.routes.RouteActivity"
-            android:label="@string/title_activity_route"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_route">
+        </activity>
     </application>
 
 </manifest>

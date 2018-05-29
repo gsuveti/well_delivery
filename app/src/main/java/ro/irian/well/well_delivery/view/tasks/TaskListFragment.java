@@ -48,6 +48,7 @@ public class TaskListFragment extends Fragment implements Injectable {
     private OnListFragmentInteractionListener mListener;
     private RecyclerView.Adapter mAdapter;
     private List<Task> taskList = new ArrayList<>();
+    private Observer<List<Task>> taskObserver;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -69,19 +70,25 @@ public class TaskListFragment extends Fragment implements Injectable {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final Observer<List<Task>> taskObserver = taskList -> {
+        taskObserver = taskList -> {
             if (taskList != null) {
                 this.taskList.clear();
                 this.taskList.addAll(taskList);
                 mAdapter.notifyDataSetChanged();
             }
         };
+        taskViewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskViewModel.class);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         String routeID = sharedPreferences.getString("activeRouteID", null);
         if (routeID == null) {
             startActivity(new Intent(getContext(), RouteActivity.class));
         }
-        taskViewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskViewModel.class);
         taskViewModel.getTaskListLiveDataByRouteID(routeID).observe(this, taskObserver);
     }
 
