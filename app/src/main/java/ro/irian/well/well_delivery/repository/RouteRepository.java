@@ -3,6 +3,7 @@ package ro.irian.well.well_delivery.repository;
 import android.arch.lifecycle.LiveData;
 import android.util.Log;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -67,5 +68,10 @@ public class RouteRepository {
         };
 
         return liveData;
+    }
+
+    public Task<Void> activateRoute(Route route) {
+        route.setActive(true);
+        return this.collection.document(route.getId()).set(route);
     }
 }

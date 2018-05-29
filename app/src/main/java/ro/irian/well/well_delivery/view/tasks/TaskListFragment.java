@@ -4,9 +4,10 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import javax.inject.Inject;
 import ro.irian.well.well_delivery.R;
 import ro.irian.well.well_delivery.di.Injectable;
 import ro.irian.well.well_delivery.domain.Task;
+import ro.irian.well.well_delivery.view.routes.RouteActivity;
 import ro.irian.well.well_delivery.viewmodel.TaskViewModel;
 
 /**
@@ -33,15 +35,16 @@ import ro.irian.well.well_delivery.viewmodel.TaskViewModel;
  */
 public class TaskListFragment extends Fragment implements Injectable {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     TaskViewModel taskViewModel;
     @Inject
     EventBus eventbus;
+
+    @Inject
+    SharedPreferences sharedPreferences;
+
     // TODO: Customize parameters
-    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private RecyclerView.Adapter mAdapter;
     private List<Task> taskList = new ArrayList<>();
@@ -55,10 +58,9 @@ public class TaskListFragment extends Fragment implements Injectable {
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static TaskListFragment newInstance(int columnCount) {
+    public static TaskListFragment newInstance() {
         TaskListFragment fragment = new TaskListFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,10 +68,6 @@ public class TaskListFragment extends Fragment implements Injectable {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
 
         final Observer<List<Task>> taskObserver = taskList -> {
             if (taskList != null) {
@@ -79,8 +77,12 @@ public class TaskListFragment extends Fragment implements Injectable {
             }
         };
 
+        String routeID = sharedPreferences.getString("activeRouteID", null);
+        if (routeID == null) {
+            startActivity(new Intent(getContext(), RouteActivity.class));
+        }
         taskViewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskViewModel.class);
-        taskViewModel.getTaskListLiveDataByRouteID("x7lJ4EfEcm8w05QRjRt1").observe(this, taskObserver);
+        taskViewModel.getTaskListLiveDataByRouteID(routeID).observe(this, taskObserver);
     }
 
     @Override
@@ -92,11 +94,7 @@ public class TaskListFragment extends Fragment implements Injectable {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
             mAdapter = new TaskListRecyclerViewAdapter(taskList, mListener, context);
             recyclerView.setAdapter(mAdapter);
         }

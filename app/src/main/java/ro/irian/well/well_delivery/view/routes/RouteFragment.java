@@ -38,9 +38,12 @@ public class RouteFragment extends Fragment implements Injectable {
     private static final String TAG = "RouteFragment";
     @BindView(R.id.list)
     RecyclerView recyclerView;
+
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+
     RouteViewModel routeViewModel;
+
     @Inject
     EventBus eventbus;
 
@@ -71,7 +74,6 @@ public class RouteFragment extends Fragment implements Injectable {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         final Observer<List<Route>> routeObserver = routeList -> {
             if (routeList != null) {
                 routes.clear();
@@ -98,7 +100,6 @@ public class RouteFragment extends Fragment implements Injectable {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mAdapter);
-
 
         return view;
     }
