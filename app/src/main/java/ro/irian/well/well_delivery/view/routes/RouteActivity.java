@@ -2,7 +2,6 @@ package ro.irian.well.well_delivery.view.routes;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -26,8 +25,6 @@ public class RouteActivity extends AppCompatActivity implements Injectable, Rout
 
     @Override
     public void onListFragmentInteraction(Route item) {
-
-        Toast.makeText(this, item.getName(), Toast.LENGTH_SHORT).show();
         routeViewModel.activateRoute(item).observe(this,
                 (value) -> {
                     finish();
