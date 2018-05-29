@@ -4,8 +4,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -38,6 +38,14 @@ public class RouteRepository {
         return this.getRouteLiveData(this.collection.whereEqualTo("driverID", driverID));
     }
 
+    public LiveData<Route> getRouteByID(String routeID) {
+        MutableLiveData<Route> liveData = new MutableLiveData<>();
+        this.collection.document(routeID).get().addOnSuccessListener(documentSnapshot -> {
+            liveData.postValue(getRouteFromDocumentSnapshot(documentSnapshot));
+        });
+        return liveData;
+    }
+
     public LiveData<List<Route>> getRouteLiveData(Query query) {
         final ListenerRegistration[] registration = {null};
 
@@ -50,11 +58,7 @@ public class RouteRepository {
                         Log.w(TAG, "Listen failed.", e);
                         return;
                     }
-                    List<Route> routes = querySnapshot.getDocuments().stream().map(documentSnapshot -> {
-                        Route route = documentSnapshot.toObject(Route.class);
-                        route.setId(documentSnapshot.getId());
-                        return route;
-                    }).collect(Collectors.toList());
+                    List<Route> routes = querySnapshot.getDocuments().stream().map(documentSnapshot -> getRouteFromDocumentSnapshot(documentSnapshot)).collect(Collectors.toList());
                     setValue(routes);
                 };
                 Query queryOrCollection = (query != null) ? query : collection;
@@ -77,9 +81,16 @@ public class RouteRepository {
 
         route.setActive(true);
         this.collection.document(route.getId()).set(route).addOnSuccessListener(
-                (value)-> liveData.postValue(true)
+                (value) -> liveData.postValue(true)
         );
 
         return liveData;
+    }
+
+
+    private Route getRouteFromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
+        Route route = documentSnapshot.toObject(Route.class);
+        route.setId(documentSnapshot.getId());
+        return route;
     }
 }

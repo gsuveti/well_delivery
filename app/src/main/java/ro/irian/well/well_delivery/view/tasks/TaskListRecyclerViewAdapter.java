@@ -11,6 +11,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ro.irian.well.well_delivery.R;
 import ro.irian.well.well_delivery.domain.Task;
 import ro.irian.well.well_delivery.view.tasks.TaskListFragment.OnListFragmentInteractionListener;
@@ -44,13 +45,14 @@ public class TaskListRecyclerViewAdapter extends RecyclerView.Adapter<TaskListRe
         holder.mItem = mValues.get(position);
 
         holder.mIdView.setText(mValues.get(position).getId());
-        holder.mDestinationAddressView.setText(mValues.get(position).getPickupAddress() + " -> " + mValues.get(position).getDeliveryAddress());
+        holder.mDestinationAddressView.setText(
+                mValues.get(position).getPickupAddress() + " -> " + mValues.get(position).getDeliveryAddress()+ "("+mValues.get(position).isActive()+")");
         holder.mView.setOnClickListener(v -> {
 
             if (null != mListener) {
                 // Notify the active callbacks interface (the activity, if the
                 // fragment is attached to one) that an item has been selected.
-                mListener.onListFragmentInteraction(holder.mItem);
+                mListener.onTaskClicked(holder.mItem);
             }
         });
     }
@@ -73,10 +75,17 @@ public class TaskListRecyclerViewAdapter extends RecyclerView.Adapter<TaskListRe
         @BindView(R.id.taskDestinationAddress)
         TextView mDestinationAddressView;
 
+
         public ViewHolder(View view) {
             super(view);
             mView = view;
             ButterKnife.bind(this, view);
+        }
+
+        @OnClick(R.id.accept)
+        public void clickedAccept() {
+            //Do something with user name
+            mListener.onTaskAccepted(this.mItem);
         }
     }
 }

@@ -1,6 +1,5 @@
 package ro.irian.well.well_delivery.view.tasks;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
@@ -39,6 +38,7 @@ public class TaskListFragment extends Fragment implements Injectable {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     TaskViewModel taskViewModel;
+
     @Inject
     EventBus eventbus;
 
@@ -49,8 +49,6 @@ public class TaskListFragment extends Fragment implements Injectable {
     private OnListFragmentInteractionListener mListener;
     private RecyclerView.Adapter mAdapter;
     private List<Task> taskList = new ArrayList<>();
-    private Observer<List<Task>> taskObserver;
-    private LiveData<List<Task>> taskListLiveData;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -72,7 +70,7 @@ public class TaskListFragment extends Fragment implements Injectable {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        taskObserver = taskList -> {
+        Observer<List<Task>> taskObserver = taskList -> {
             if (taskList != null) {
                 this.taskList.clear();
                 this.taskList.addAll(taskList);
@@ -80,6 +78,7 @@ public class TaskListFragment extends Fragment implements Injectable {
             }
         };
         taskViewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskViewModel.class);
+        taskViewModel.getTaskListLiveData().observe(this, taskObserver);
 
     }
 
@@ -91,11 +90,7 @@ public class TaskListFragment extends Fragment implements Injectable {
         if (activeRouteID == null) {
             startActivity(new Intent(getContext(), RouteActivity.class));
         } else {
-            if (taskListLiveData != null) {
-                taskListLiveData.removeObservers(this);
-            }
-            taskListLiveData = taskViewModel.getTaskListLiveDataByRouteID(activeRouteID);
-            taskListLiveData.observe(this, taskObserver);
+            taskViewModel.setActiveRouteID(activeRouteID);
         }
     }
 
@@ -145,6 +140,8 @@ public class TaskListFragment extends Fragment implements Injectable {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Task item);
+        void onTaskClicked(Task task);
+
+        void onTaskAccepted(Task task);
     }
 }

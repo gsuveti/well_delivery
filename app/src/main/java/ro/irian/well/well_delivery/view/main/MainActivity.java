@@ -1,5 +1,7 @@
 package ro.irian.well.well_delivery.view.main;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,8 +29,8 @@ import ro.irian.well.well_delivery.R;
 import ro.irian.well.well_delivery.di.Injectable;
 import ro.irian.well.well_delivery.domain.Driver;
 import ro.irian.well.well_delivery.domain.Task;
-import ro.irian.well.well_delivery.view.DevActivity;
 import ro.irian.well.well_delivery.view.MapsActivity;
+import ro.irian.well.well_delivery.view.dev.DevActivity;
 import ro.irian.well.well_delivery.view.routes.RouteActivity;
 import ro.irian.well.well_delivery.view.tasks.TaskDetailActivity;
 import ro.irian.well.well_delivery.view.tasks.TaskListActivity;
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
     @Inject
+    ViewModelProvider.Factory viewModelFactory;
     MainViewModel mainViewModel;
     @Inject
     SharedPreferences sharedPreferences;
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel.class);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -126,7 +131,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
         } else if (id == R.id.nav_dev) {
             this.startActivity(new Intent(this, DevActivity.class));
         } else if (id == R.id.nav_dev_maps) {
@@ -165,7 +169,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(Task task) {
+    public void onTaskClicked(Task task) {
         Intent intent = new Intent(this, TaskDetailActivity.class);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -174,5 +178,12 @@ public class MainActivity extends AppCompatActivity
 
         intent.putExtra("taskID", task.getId());
         startActivity(intent);
+    }
+
+
+    @Override
+    public void onTaskAccepted(Task task) {
+        Log.d("test", task.getId());
+        this.mainViewModel.setTaskAsActive(task.getId());
     }
 }

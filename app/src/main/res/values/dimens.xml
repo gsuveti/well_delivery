@@ -27,4 +27,6 @@
     <dimen name="text_size_xlarge">34sp</dimen>
     <dimen name="text_size_xxlarge">45sp</dimen>
     <dimen name="text_size_xxxlarge">56sp</dimen>
+    <dimen name="app_bar_height">200dp</dimen>
+    <dimen name="item_width">200dp</dimen>
 </resources>

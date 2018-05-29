@@ -2,7 +2,7 @@ package ro.irian.well.well_delivery.di;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import ro.irian.well.well_delivery.view.DevActivity;
+import ro.irian.well.well_delivery.view.dev.DevActivity;
 import ro.irian.well.well_delivery.view.login.LoginActivity;
 import ro.irian.well.well_delivery.view.main.MainActivity;
 import ro.irian.well.well_delivery.view.routes.RouteActivity;

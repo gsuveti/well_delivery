@@ -6,6 +6,9 @@ public class Task {
 
     private String id;
     private String routeID;
+    private boolean active;
+    private boolean pickupDone;
+    private boolean deliveryDone;
 
     private String pickupCity;
     private String pickupAddress;
@@ -192,5 +195,29 @@ public class Task {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isPickupDone() {
+        return pickupDone;
+    }
+
+    public void setPickupDone(boolean pickupDone) {
+        this.pickupDone = pickupDone;
+    }
+
+    public boolean isDeliveryDone() {
+        return deliveryDone;
+    }
+
+    public void setDeliveryDone(boolean deliveryDone) {
+        this.deliveryDone = deliveryDone;
     }
 }

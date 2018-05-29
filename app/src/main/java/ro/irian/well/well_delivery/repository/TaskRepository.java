@@ -1,9 +1,11 @@
 package ro.irian.well.well_delivery.repository;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -33,6 +35,15 @@ public class TaskRepository {
 
     public LiveData<List<Task>> getTaskLiveData() {
         return this.getTaskLiveData(null);
+    }
+
+
+    public LiveData<Task> getTaskByID(String taskID) {
+        MutableLiveData<Task> liveData = new MutableLiveData<>();
+        this.collection.document(taskID).get().addOnSuccessListener(documentSnapshot -> {
+            liveData.postValue(getTaskFromDocumentSnapshot(documentSnapshot));
+        });
+        return liveData;
     }
 
     public LiveData<List<Task>> getTaskListLiveDataByRouteID(String routeID) {
@@ -70,5 +81,16 @@ public class TaskRepository {
         };
 
         return liveData;
+    }
+
+
+    private Task getTaskFromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
+        Task task = documentSnapshot.toObject(Task.class);
+        task.setId(documentSnapshot.getId());
+        return task;
+    }
+
+    public void setTaskAsActive(String taskID) {
+        this.collection.document(taskID).update("active", true);
     }
 }

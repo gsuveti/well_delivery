@@ -1,4 +1,4 @@
-package ro.irian.well.well_delivery.view;
+package ro.irian.well.well_delivery.view.dev;
 
 import android.Manifest;
 import android.content.Intent;
