@@ -1,5 +1,6 @@
 package ro.irian.well.well_delivery.view.tasks;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
@@ -49,6 +50,7 @@ public class TaskListFragment extends Fragment implements Injectable {
     private RecyclerView.Adapter mAdapter;
     private List<Task> taskList = new ArrayList<>();
     private Observer<List<Task>> taskObserver;
+    private LiveData<List<Task>> taskListLiveData;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -89,7 +91,11 @@ public class TaskListFragment extends Fragment implements Injectable {
         if (routeID == null) {
             startActivity(new Intent(getContext(), RouteActivity.class));
         }
-        taskViewModel.getTaskListLiveDataByRouteID(routeID).observe(this, taskObserver);
+        if (taskListLiveData != null) {
+            taskListLiveData.removeObservers(this);
+        }
+        taskListLiveData = taskViewModel.getTaskListLiveDataByRouteID(routeID);
+        taskListLiveData.observe(this, taskObserver);
     }
 
     @Override
