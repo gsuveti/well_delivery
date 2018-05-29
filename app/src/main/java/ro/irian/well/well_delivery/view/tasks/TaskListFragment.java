@@ -87,15 +87,16 @@ public class TaskListFragment extends Fragment implements Injectable {
     public void onStart() {
         super.onStart();
 
-        String routeID = sharedPreferences.getString("activeRouteID", null);
-        if (routeID == null) {
+        String activeRouteID = sharedPreferences.getString("activeRouteID", null);
+        if (activeRouteID == null) {
             startActivity(new Intent(getContext(), RouteActivity.class));
+        } else {
+            if (taskListLiveData != null) {
+                taskListLiveData.removeObservers(this);
+            }
+            taskListLiveData = taskViewModel.getTaskListLiveDataByRouteID(activeRouteID);
+            taskListLiveData.observe(this, taskObserver);
         }
-        if (taskListLiveData != null) {
-            taskListLiveData.removeObservers(this);
-        }
-        taskListLiveData = taskViewModel.getTaskListLiveDataByRouteID(routeID);
-        taskListLiveData.observe(this, taskObserver);
     }
 
     @Override
