@@ -1,6 +1,7 @@
 package ro.irian.well.well_delivery.repository;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
@@ -70,8 +71,15 @@ public class RouteRepository {
         return liveData;
     }
 
-    public Task<Void> activateRoute(Route route) {
+    public MutableLiveData<Boolean> activateRoute(Route route) {
+
+        MutableLiveData<Boolean> liveData = new MutableLiveData<>();
+
         route.setActive(true);
-        return this.collection.document(route.getId()).set(route);
+        this.collection.document(route.getId()).set(route).addOnSuccessListener(
+                (value)-> liveData.postValue(true)
+        );
+
+        return liveData;
     }
 }

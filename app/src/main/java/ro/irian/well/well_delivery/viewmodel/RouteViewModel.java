@@ -1,6 +1,7 @@
 package ro.irian.well.well_delivery.viewmodel;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.content.SharedPreferences;
 
@@ -32,13 +33,13 @@ public class RouteViewModel extends ViewModel {
 
     }
 
-    public void activateRoute(Route route) {
-        this.routeRepository.activateRoute(route).addOnSuccessListener(
-                aVoid -> {
+    public LiveData<Boolean> activateRoute(Route route) {
+        return Transformations.map(this.routeRepository.activateRoute(route),
+                (Boolean value) -> {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("activeRouteID", route.getId());
                     editor.commit();
-                    //                Log.d(TAG, "DocumentSnapshot successfully written!");
+                    return value;
                 }
         );
     }
