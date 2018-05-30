@@ -13,13 +13,9 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/task_list" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_handover"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="@string/handover" />
     </group>
 
     <item android:title="Dev">

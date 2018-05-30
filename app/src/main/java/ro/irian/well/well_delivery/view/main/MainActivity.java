@@ -31,6 +31,7 @@ import ro.irian.well.well_delivery.domain.Driver;
 import ro.irian.well.well_delivery.domain.Task;
 import ro.irian.well.well_delivery.view.MapsActivity;
 import ro.irian.well.well_delivery.view.dev.DevActivity;
+import ro.irian.well.well_delivery.view.handover.HandoverActivity;
 import ro.irian.well.well_delivery.view.routes.RouteActivity;
 import ro.irian.well.well_delivery.view.tasks.TaskDetailActivity;
 import ro.irian.well.well_delivery.view.tasks.TaskListActivity;
@@ -128,9 +129,8 @@ public class MainActivity extends AppCompatActivity
             this.startActivity(new Intent(this, RouteActivity.class));
         } else if (id == R.id.nav_taskList) {
             this.startActivity(new Intent(this, TaskListActivity.class));
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_handover) {
+            this.startActivity(new Intent(this, HandoverActivity.class));
         } else if (id == R.id.nav_dev) {
             this.startActivity(new Intent(this, DevActivity.class));
         } else if (id == R.id.nav_dev_maps) {

@@ -60,8 +60,17 @@ public class LoginActivity extends AppCompatActivity implements Injectable {
             return false;
         });
         loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel.class);
+    }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        String uid = sharedPreferences.getString("uid", null);
+        if (uid != null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     /**

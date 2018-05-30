@@ -53,7 +53,7 @@
         <activity
             android:name=".view.main.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.login.LoginActivity"
             android:label="@string/title_activity_login">
@@ -70,6 +70,14 @@
         <activity
             android:name=".view.routes.RouteActivity"
             android:label="@string/title_activity_route" />
+        <activity
+            android:name=".view.handover.HandoverActivity"
+            android:label="@string/title_activity_handover"
+            android:parentActivityName=".view.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.irian.well.well_delivery.view.main.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
