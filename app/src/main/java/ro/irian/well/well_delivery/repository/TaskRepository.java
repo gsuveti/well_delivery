@@ -1,96 +1,66 @@
 package ro.irian.well.well_delivery.repository;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
+import android.annotation.SuppressLint;
 
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Flowable;
+import ro.irian.well.well_delivery.domain.Piece;
 import ro.irian.well.well_delivery.domain.Task;
+import ro.irian.well.well_delivery.domain.TaskPieceLink;
 
 @Singleton
-public class TaskRepository {
-
+public class TaskRepository extends FirebaseRepository<Task> {
     private static final String TAG = "TaskRepository";
-    private final FirebaseFirestore firebaseFirestore;
-    private final CollectionReference collection;
+    private final PieceRepository pieceRepository;
+    private final TaskPieceLinkRepository taskPieceLinkRepository;
+
 
     @Inject
-    public TaskRepository(FirebaseFirestore firebaseFirestore) {
-        this.firebaseFirestore = firebaseFirestore;
-        this.collection = firebaseFirestore.collection("tasks");
+    public TaskRepository(FirebaseFirestore firebaseFirestore, PieceRepository pieceRepository, TaskPieceLinkRepository taskPieceLinkRepository) {
+        super(firebaseFirestore.collection("tasks"), Task.class);
+        this.pieceRepository = pieceRepository;
+        this.taskPieceLinkRepository = taskPieceLinkRepository;
     }
 
-    public LiveData<List<Task>> getTaskLiveData() {
-        return this.getTaskLiveData(null);
-    }
-
-
-    public LiveData<Task> getTaskByID(String taskID) {
-        MutableLiveData<Task> liveData = new MutableLiveData<>();
-        this.collection.document(taskID).get().addOnSuccessListener(documentSnapshot -> {
-            liveData.postValue(getTaskFromDocumentSnapshot(documentSnapshot));
-        });
-        return liveData;
-    }
-
-    public LiveData<List<Task>> getTaskListLiveDataByRouteID(String routeID) {
-        return this.getTaskLiveData(this.collection.whereEqualTo("routeID", routeID));
-    }
-
-    public LiveData<List<Task>> getTaskLiveData(Query query) {
-        final ListenerRegistration[] registration = {null};
-
-        LiveData<List<Task>> liveData = new LiveData<List<Task>>() {
-            @Override
-            protected void onActive() {
-                super.onActive();
-                EventListener<QuerySnapshot> querySnapshotEventListener = (querySnapshot, e) -> {
-                    if (e != null) {
-                        Log.w(TAG, "Listen failed.", e);
-                        return;
-                    }
-                    List<Task> tasks = querySnapshot.getDocuments().stream().map(documentSnapshot -> {
-                        Task task = documentSnapshot.toObject(Task.class);
-                        task.setId(documentSnapshot.getId());
-                        return task;
-                    }).collect(Collectors.toList());
-                    setValue(tasks);
-                };
-                Query queryOrCollection = (query != null) ? query : collection;
-                registration[0] = queryOrCollection.addSnapshotListener(querySnapshotEventListener);
-            }
-
-            @Override
-            protected void onInactive() {
-                super.onInactive();
-                registration[0].remove();
-            }
-        };
-
-        return liveData;
-    }
-
-
-    private Task getTaskFromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
-        Task task = documentSnapshot.toObject(Task.class);
-        task.setId(documentSnapshot.getId());
-        return task;
+    public Flowable<List<Task>> getListByRouteID(String routeID) {
+        return this.getList(this.collection.whereEqualTo("routeID", routeID));
     }
 
     public void setTaskAsActive(String taskID) {
         this.collection.document(taskID).update("active", true);
     }
+
+
+    @SuppressLint("CheckResult")
+    public Flowable<Task> observeOneWithPieces(String ID) {
+        Flowable<Task> taskFlowable = this.observeOne(ID);
+        Flowable<List<TaskPieceLink>> taskPieceLinkFlowable = this.taskPieceLinkRepository.
+                observeList(taskPieceLinkRepository.collection.whereEqualTo("taskID", ID));
+
+        return Flowable.combineLatest(taskFlowable, taskPieceLinkFlowable, (task, taskPieceLinks) -> {
+            taskPieceLinks.forEach(taskPieceLink -> task.getPiecesMap().put(taskPieceLink.getPieceID(), null));
+            return task;
+        }).switchMap((Task task) -> {
+            List<Flowable<Piece>> flowablePieces = task.getPiecesMap().keySet().stream()
+                    .map(this.pieceRepository::getOne)
+                    .collect(Collectors.toList());
+
+            return Flowable.zip(flowablePieces, Arrays::asList).map((List<Object> pieces) -> {
+                pieces.forEach((Object item) -> {
+                    Piece piece = (Piece) item;
+                    task.getPiecesMap().put(piece.getId(), piece);
+                });
+                return task;
+            });
+        });
+    }
+
 }

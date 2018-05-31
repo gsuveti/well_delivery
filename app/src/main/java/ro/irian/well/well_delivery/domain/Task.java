@@ -1,10 +1,14 @@
 package ro.irian.well.well_delivery.domain;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Task {
+import ro.irian.well.well_delivery.repository.BaseEntity;
 
-    private String id;
+public class Task extends BaseEntity {
+
     private String routeID;
     private boolean active;
     private boolean pickupDone;
@@ -33,16 +37,11 @@ public class Task {
     private Integer totalWeight;
 
     private List<String> tags;
+    private List<Piece> pieces = new ArrayList<>();
+    private Map<String, Piece> piecesMap = new HashMap();
 
     public Task() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        super();
     }
 
     public String getRouteID() {
@@ -219,5 +218,17 @@ public class Task {
 
     public void setDeliveryDone(boolean deliveryDone) {
         this.deliveryDone = deliveryDone;
+    }
+
+    public List<Piece> getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(List<Piece> pieces) {
+        this.pieces = pieces;
+    }
+
+    public Map<String, Piece> getPiecesMap() {
+        return piecesMap;
     }
 }

@@ -80,6 +80,7 @@ dependencies {
     // Lifecycle
     implementation "android.arch.lifecycle:runtime:$project.androidArchVersion"
     implementation "android.arch.lifecycle:extensions:$project.androidArchVersion"
+    implementation "android.arch.lifecycle:reactivestreams:$project.androidArchVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$project.androidArchVersion"
 
     // RxRelay

@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
+import ro.irian.well.well_delivery.viewmodel.HandoverViewModel;
 import ro.irian.well.well_delivery.viewmodel.LoginViewModel;
 import ro.irian.well.well_delivery.viewmodel.MainViewModel;
 import ro.irian.well.well_delivery.viewmodel.RouteViewModel;
@@ -35,6 +36,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel.class)
     abstract ViewModel bindMainViewModel(MainViewModel mainViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HandoverViewModel.class)
+    abstract ViewModel bindHandoverViewModel(HandoverViewModel handoverViewModel);
 
 
     @Binds

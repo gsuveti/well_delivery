@@ -12,13 +12,13 @@ import javax.inject.Inject;
 import ro.irian.well.well_delivery.domain.Task;
 import ro.irian.well.well_delivery.repository.TaskRepository;
 
-public class TaskViewModel extends ViewModel {
+public class HandoverViewModel extends ViewModel {
     private final TaskRepository taskRepository;
     private final MediatorLiveData<List<Task>> taskListLiveData;
     private LiveData<List<Task>> source;
 
     @Inject
-    public TaskViewModel(TaskRepository taskRepository) {
+    public HandoverViewModel(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
         this.taskListLiveData = new MediatorLiveData<>();
     }
@@ -27,13 +27,8 @@ public class TaskViewModel extends ViewModel {
         return this.taskListLiveData;
     }
 
-    public void setActiveRouteID(String activeRouteID) {
-        if (this.source != null) {
-            taskListLiveData.removeSource(source);
-        }
-
-        source = LiveDataReactiveStreams.fromPublisher(this.taskRepository.getListByRouteID(activeRouteID));
-        taskListLiveData.addSource(source, value -> taskListLiveData.setValue(value));
+    public LiveData<Task> getTask(String taskID) {
+        return LiveDataReactiveStreams.fromPublisher(this.taskRepository.observeOneWithPieces(taskID));
     }
 
     @Override
