@@ -46,7 +46,7 @@ public class TaskListRecyclerViewAdapter extends RecyclerView.Adapter<TaskListRe
 
         holder.mIdView.setText(mValues.get(position).getId());
         holder.mDestinationAddressView.setText(
-                mValues.get(position).getPickupAddress() + " -> " + mValues.get(position).getDeliveryAddress()+ "("+mValues.get(position).isActive()+")");
+                mValues.get(position).getPickupCity() + " -> " + mValues.get(position).getDeliveryCity()+ "("+mValues.get(position).isActive()+")");
         holder.mView.setOnClickListener(v -> {
 
             if (null != mListener) {

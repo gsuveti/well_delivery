@@ -14,8 +14,8 @@ public class Task extends BaseEntity {
     private boolean pickupDone;
     private boolean deliveryDone;
 
-    private String pickupCity;
     private String pickupAddress;
+    private String pickupCity;
     private String pickupContactName;
     private String pickupContactPhone;
     private String pickupStartTime;

@@ -8,6 +8,7 @@ import ro.irian.well.well_delivery.view.login.LoginActivity;
 import ro.irian.well.well_delivery.view.main.MainActivity;
 import ro.irian.well.well_delivery.view.routes.RouteActivity;
 import ro.irian.well.well_delivery.view.routes.RouteFragment;
+import ro.irian.well.well_delivery.view.tasks.TaskDetailActivity;
 import ro.irian.well.well_delivery.view.tasks.TaskListActivity;
 import ro.irian.well.well_delivery.view.tasks.TaskListFragment;
 
@@ -22,6 +23,9 @@ abstract class BuildersModule {
 
     @ContributesAndroidInjector
     abstract TaskListActivity bindTaskListActivity();
+
+    @ContributesAndroidInjector
+    abstract TaskDetailActivity bindTaskDetailActivity();
 
     @ContributesAndroidInjector
     abstract TaskListFragment bindTaskListTaskListFragment();

@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="red">#dc3545</color>
     <color name="lightGray">#bdbdbd</color>
+    <color name="declineButtonRed">#eb5757</color>
+    <color name="pickupGreen">#27AE60</color>
+    <color name="deliveryOrange">#F2994A</color>
 </resources>

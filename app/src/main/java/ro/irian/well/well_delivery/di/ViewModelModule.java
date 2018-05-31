@@ -10,6 +10,7 @@ import ro.irian.well.well_delivery.viewmodel.HandoverViewModel;
 import ro.irian.well.well_delivery.viewmodel.LoginViewModel;
 import ro.irian.well.well_delivery.viewmodel.MainViewModel;
 import ro.irian.well.well_delivery.viewmodel.RouteViewModel;
+import ro.irian.well.well_delivery.viewmodel.TaskDetailViewModel;
 import ro.irian.well.well_delivery.viewmodel.TaskViewModel;
 import ro.irian.well.well_delivery.viewmodel.ViewModelFactory;
 
@@ -26,11 +27,15 @@ abstract class ViewModelModule {
     @ViewModelKey(LoginViewModel.class)
     abstract ViewModel bindLoginViewModel(LoginViewModel loginViewModel);
 
-
     @Binds
     @IntoMap
     @ViewModelKey(TaskViewModel.class)
     abstract ViewModel bindTaskViewModel(TaskViewModel taskViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TaskDetailViewModel.class)
+    abstract ViewModel bindTaskDetailViewModel(TaskDetailViewModel taskDetailViewModel);
 
     @Binds
     @IntoMap

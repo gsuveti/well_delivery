@@ -63,4 +63,8 @@ public class TaskRepository extends FirebaseRepository<Task> {
         });
     }
 
+    public void rejectTask(String taskID) {
+        //TODO!
+        this.collection.document(taskID).update("routeID", null);
+    }
 }

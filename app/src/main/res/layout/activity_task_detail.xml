@@ -1,9 +1,493 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.tasks.TaskDetailActivity">
+    android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".view.tasks.TaskDetailActivity">
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/task_header_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin"
+            android:layout_marginVertical="@dimen/margin_sm"
+            card_view:cardCornerRadius="@dimen/card_corner_radius">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/new_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:text="@string/newTask"
+                    android:textColor="@color/material_cyan_500"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/task_cities"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:textSize="@dimen/text_size_xlarge" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        card_view:layout_constraintLeft_toLeftOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/task_pickup_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/pickup_label" />
+
+                        <TextView
+                            android:id="@+id/task_pickup_interval"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin_xxs"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        card_view:layout_constraintRight_toRightOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/task_delivery_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/delivery_label" />
+
+                        <TextView
+                            android:id="@+id/task_delivery_interval"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin_xxs" />
+                    </LinearLayout>
+
+
+                </android.support.constraint.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/task_sender_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/task_sender_label" />
+
+                    <TextView
+                        android:id="@+id/task_sender_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_xxs" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/task_receiver_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/task_receiver_label" />
+
+                    <TextView
+                        android:id="@+id/task_receiver_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_xxs" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/task_accept_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin">
+
+                    <Button
+                        android:id="@+id/task_reject"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/margin_md"
+                        android:layout_weight="1"
+                        android:background="@color/declineButtonRed"
+                        android:text="@string/reject"
+                        android:textColor="@color/material_light_white" />
+
+                    <Button
+                        android:id="@+id/task_accept"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/material_green_500"
+                        android:text="@string/accept"
+                        android:textColor="@color/material_light_white" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/task_pieces_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin"
+            android:layout_marginVertical="@dimen/margin_sm"
+            card_view:cardCornerRadius="@dimen/card_corner_radius">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/task_pieces_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@string/task_pieces_header" />
+
+                <TextView
+                    android:id="@+id/task_pieces_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/task_pieces_awb_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/task_pieces_awb_label"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/task_pieces_awb_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/task_pickup_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin"
+            android:layout_marginVertical="@dimen/margin_sm"
+            card_view:cardCornerRadius="@dimen/card_corner_radius">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/task_pickup_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@string/task_pickup_header"
+                    android:textColor="@color/pickupGreen" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/task_pickup_location_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/task_pickup_location_label" />
+
+                    <TextView
+                        android:id="@+id/task_pickup_location_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_xxs"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/task_pickup_interval_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/task_pickup_interval_label" />
+
+                    <TextView
+                        android:id="@+id/task_pickup_interval_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_xxs"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:orientation="vertical"
+                        card_view:layout_constraintLeft_toLeftOf="parent">
+
+                        <TextView
+                            android:id="@+id/task_pickup_contact_person_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/task_pickup_contact_person_label" />
+
+                        <TextView
+                            android:id="@+id/task_pickup_contact_person_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/text_margin" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/task_pickup_contact_person_call"
+                        android:layout_width="0dp"
+                        android:layout_height="72dp"
+                        android:layout_weight="3"
+                        android:src="@drawable/ic_menu_send"
+                        card_view:layout_constraintRight_toRightOf="parent" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/task_pickup_scan_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:background="@color/material_cyan_500"
+                    android:text="@string/task_scan"
+                    android:textColor="@color/material_light_white" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/task_delivery_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin"
+            android:layout_marginVertical="@dimen/margin_sm"
+            card_view:cardCornerRadius="@dimen/card_corner_radius">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/task_delivery_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@string/task_delivery_header"
+                    android:textColor="@color/deliveryOrange" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/task_delivery_location_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/task_delivery_location_label" />
+
+                    <TextView
+                        android:id="@+id/task_delivery_location_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_xxs" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/task_delivery_interval_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/task_delivery_interval_label" />
+
+                    <TextView
+                        android:id="@+id/task_delivery_interval_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_xxs"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:orientation="vertical"
+                        card_view:layout_constraintLeft_toLeftOf="parent">
+
+                        <TextView
+                            android:id="@+id/task_delivery_contact_person_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/task_delivery_contact_person_label" />
+
+                        <TextView
+                            android:id="@+id/task_delivery_contact_person_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/text_margin" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/task_delivery_contact_person_call"
+                        android:layout_width="0dp"
+                        android:layout_height="72dp"
+                        android:layout_weight="3"
+                        android:src="@drawable/ic_menu_send"
+                        card_view:layout_constraintRight_toRightOf="parent" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/task_delivery_scan_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:background="@color/material_cyan_500"
+                    android:text="@string/task_scan"
+                    android:textColor="@color/material_light_white" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/task_dispatcher_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin"
+            android:layout_marginVertical="@dimen/margin_sm"
+            card_view:cardCornerRadius="@dimen/card_corner_radius">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/task_dispatcher_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_weight="8"
+                    android:text="@string/task_contact_dispatcher" />
+
+
+                <ImageButton
+                    android:id="@+id/task_dispatcher_call"
+                    android:layout_width="0dp"
+                    android:layout_height="72dp"
+                    android:layout_weight="3"
+                    android:src="@drawable/ic_menu_send"
+                    card_view:layout_constraintRight_toRightOf="parent" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+</ScrollView>

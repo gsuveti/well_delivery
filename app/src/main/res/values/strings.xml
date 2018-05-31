@@ -32,8 +32,24 @@
     <string name="route_list">Route List</string>
     <string name="task_list">Task List</string>
     <string name="handover">Handover</string>
-    <string name="accept">accept</string>
     <string name="title_activity_route">RouteActivity</string>
+    <string name="newTask">NOU</string>
+    <string name="pickup_label">Inc: </string>
+    <string name="delivery_label">Desc: </string>
+    <string name="task_sender_label">Expeditor: </string>
+    <string name="task_receiver_label">Destinatar: </string>
+    <string name="accept">Accepta</string>
+    <string name="reject">Respinge</string>
+    <string name="task_pieces_awb_label">AWB: </string>
+    <string name="task_pickup_header">Preluare</string>
+    <string name="task_pieces_header">Pachete</string>
+    <string name="task_pickup_location_label">Locatie:</string>
+    <string name="task_pickup_interval_label">Interval:</string>
+    <string name="task_pickup_contact_person_label">Persoana de contact:</string>
+    <string name="task_delivery_header">Predare</string>
+    <string name="task_delivery_location_label">Locatie: </string>
+    <string name="task_delivery_interval_label">Interval:</string>
+    <string name="task_delivery_contact_person_label">Persoana de contact:</string>
     <string name="title_activity_handover">HandoverActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -124,4 +140,12 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="task_contact_dispatcher">Contacteaza dispecer</string>
+    <string name="task_cities">%1$s - %2$s</string>
+    <string name="time_interval">%1$s - %2$s</string>
+    <string name="task_scan">Scaneaza</string>
+    <plurals name="pieces_number_weight">
+        <item quantity="one">%1$d pachet | %2$d kg</item>
+        <item quantity="other">%1$d pachete | %2$d kg</item>
+    </plurals>
 </resources>
