@@ -45,7 +45,6 @@ public class TaskListFragment extends Fragment implements Injectable {
     @Inject
     SharedPreferences sharedPreferences;
 
-    // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
     private RecyclerView.Adapter mAdapter;
     private List<Task> taskList = new ArrayList<>();
@@ -57,8 +56,6 @@ public class TaskListFragment extends Fragment implements Injectable {
     public TaskListFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static TaskListFragment newInstance() {
         TaskListFragment fragment = new TaskListFragment();
         Bundle args = new Bundle();
@@ -139,7 +136,6 @@ public class TaskListFragment extends Fragment implements Injectable {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onTaskClicked(Task task);
 
         void onTaskAccepted(Task task);

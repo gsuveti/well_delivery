@@ -17,7 +17,6 @@ import ro.irian.well.well_delivery.view.routes.RouteFragment.OnListFragmentInter
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Route} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecyclerViewAdapter.ViewHolder> {
 

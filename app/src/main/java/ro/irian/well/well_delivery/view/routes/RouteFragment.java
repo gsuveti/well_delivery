@@ -61,8 +61,6 @@ public class RouteFragment extends Fragment implements Injectable {
     public RouteFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static RouteFragment newInstance(int columnCount) {
         RouteFragment fragment = new RouteFragment();
         Bundle args = new Bundle();
@@ -133,7 +131,6 @@ public class RouteFragment extends Fragment implements Injectable {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(Route item);
     }
 }

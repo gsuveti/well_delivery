@@ -19,7 +19,6 @@ import ro.irian.well.well_delivery.view.tasks.TaskListFragment.OnListFragmentInt
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Task} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class TaskListRecyclerViewAdapter extends RecyclerView.Adapter<TaskListRecyclerViewAdapter.ViewHolder> {
     private final OnListFragmentInteractionListener mListener;

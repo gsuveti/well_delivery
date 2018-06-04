@@ -34,7 +34,7 @@
                     android:layout_marginTop="@dimen/text_margin"
                     android:text="@string/newTask"
                     android:textColor="@color/material_cyan_500"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/task_cities"
